@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TryDeepShield | Real-Time Liveness Detection</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deep: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        },
+                        neon: {
+                            green: '#00ff9d',
+                            blue: '#00f3ff',
+                            red: '#ff0055'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'scan': 'scan 2s linear infinite',
+                    },
+                    keyframes: {
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-deep-900 text-white min-h-screen flex flex-col overflow-x-hidden relative">
+
+    <!-- Background Grid Effect -->
+    <div
+        class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-deep-900 pointer-events-none"></div>
+
+    <!-- Header -->
+    <header
+        class="flex flex-col md:flex-row justify-between items-center mb-8 p-4 bg-gray-900 bg-opacity-50 rounded-lg border border-green-500/30 backdrop-blur-md gap-4 md:gap-0">
+        <div class="flex items-center space-x-3 group cursor-pointer">
+            <div
+                class="p-2 bg-green-500/10 rounded-full border border-green-500/50 group-hover:bg-green-500/20 transition-all duration-300">
+                <svg class="w-8 h-8 text-green-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                    </path>
+                </svg>
+            </div>
+            <div>
+                <h1
+                    class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 tracking-wider">
+                    DEEPSHIELD
+                </h1>
+                <span class="text-xs text-green-500 tracking-[0.2em] uppercase font-semibold ml-1">Protocol
+                    V2.0.4</span>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2">
+            <span class="relative flex h-3 w-3">
+                <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            <span class="text-green-400 font-mono text-sm">SYSTEM STATUS: ONLINE</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center px-4 relative z-10 text-center mt-4 md:mt-[-50px]">
+
+        <!-- Hero Section -->
+        <div class="max-w-3xl mx-auto mb-12">
+            <div
+                class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-500/10 rounded-full border border-blue-500/20">
+                v2.0.4 Stable Release
+            </div>
+            <h1
+                class="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-500">
+                Real-Time Deepfake & <br /> Liveness Detection
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                Defending against AI-generated spoofs and replay attacks using advanced photometric analysis and
+                challenge-response protocols.
+            </p>
+        </div>
+
+        <!-- Action Area -->
+        <div class="relative group w-full max-w-md">
+            <div
+                class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+            </div>
+
+            <div class="relative glass p-6 md:p-8 rounded-xl w-full mx-auto">
+                <!-- Status Indicator -->
+                <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                    <span class="text-sm text-slate-400 font-mono">SYSTEM STATUS</span>
+                    <div class="flex items-center gap-2">
+                        <span class="relative flex h-3 w-3">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <span class="text-xs text-green-400 font-bold tracking-wider">ONLINE</span>
+                    </div>
+                </div>
+
+                <!-- Main Button -->
+                <button id="verifyBtn"
+                    class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-lg shadow-lg shadow-blue-600/30 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group-hover:shadow-blue-500/50">
+                    <i class="fa-solid fa-fingerprint text-xl"></i>
+                    <span>Verify Humanity</span>
+                </button>
+
+                <!-- Result Display -->
+                <div id="resultContainer" class="hidden mt-6 transition-all duration-500">
+                    <div id="resultCard"
+                        class="p-5 rounded-lg border border-slate-700 bg-slate-800/50 flex flex-col gap-4">
+                        <div class="flex items-center gap-4">
+                            <div id="resultIcon" class="text-4xl"></div>
+                            <div class="text-left flex-1">
+                                <h3 id="resultTitle" class="font-bold text-xl tracking-wide"></h3>
+                                <p id="resultDesc" class="text-sm text-slate-400 font-mono mt-1"></p>
+                            </div>
+                        </div>
+                        <div id="telemetry"
+                            class="w-full pt-3 border-t border-slate-700/50 flex justify-between text-[11px] text-slate-500 font-mono hidden">
+                            <span>SESSION ID: <span id="sessionId" class="text-slate-300 font-bold"></span></span>
+                            <span>LATENCY: <span id="latency" class="text-slate-300 font-bold"></span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="mt-4 text-xs text-slate-500">
+                    By clicking verify, you consent to a temporary video scan for liveness analysis. No data is
+                    permanently stored.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-slate-600 text-sm z-10">
+        <p>&copy; 2026 DeepShield Inc. All systems operational.</p>
+    </footer>
+
+    <!-- Import SDK -->
+    <script src="deepshield.js"></script>
+
+    <script>
+        const verifyBtn = document.getElementById('verifyBtn');
+        const resultContainer = document.getElementById('resultContainer');
+        const resultCard = document.getElementById('resultCard');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultDesc = document.getElementById('resultDesc');
+        const resultIcon = document.getElementById('resultIcon');
+        const telemetry = document.getElementById('telemetry');
+        const sessionIdEl = document.getElementById('sessionId');
+        const latencyEl = document.getElementById('latency');
+
+        const API_URL = 'https://michell-crazed-fashionably.ngrok-free.dev/verify_liveness';
+
+        verifyBtn.addEventListener('click', async () => {
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Initializing Secure Channel...';
+            verifyBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+            // Hide previous result
+            resultContainer.classList.add('hidden');
+            telemetry.classList.add('hidden');
+
+            // Generate Session ID
+            const sessionId = "TXN-" + Math.floor(1000 + Math.random() * 9000) + "-SEC";
+            const startTime = performance.now();
+
+            try {
+                // Call DeepShield SDK
+                const response = await window.deepShield.startChallenge(API_URL);
+
+                const endTime = performance.now();
+                const processingTime = (endTime - startTime).toFixed(0);
+
+                resultContainer.classList.remove('hidden');
+                telemetry.classList.remove('hidden');
+
+                sessionIdEl.innerText = sessionId;
+                latencyEl.innerText = `${processingTime}ms`;
+
+                if (response.is_real) {
+                    resultCard.className = "p-4 rounded-lg border border-green-500/30 bg-green-500/10 flex items-center gap-4";
+                    resultIcon.innerHTML = '<i class="fa-solid fa-check-circle text-green-400"></i>';
+                    resultTitle.innerText = "VERIFICATION SUCCESSFUL";
+                    resultTitle.className = "font-bold text-lg text-green-400";
+                    resultDesc.innerText = `Confidence Score: ${(response.confidence * 100).toFixed(1)}%`;
+                } else {
+                    resultCard.className = "p-4 rounded-lg border border-red-500/30 bg-red-500/10 flex items-center gap-4";
+                    resultIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-red-400"></i>';
+                    resultTitle.innerText = "VERIFICATION FAILED";
+                    resultTitle.className = "font-bold text-lg text-red-400";
+
+                    if (response.error) {
+                        resultDesc.innerText = `System Error: ${response.error}`;
+                    } else {
+                        resultDesc.innerText = response.reason || "Liveness check failed. Potential spoof detected.";
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                resultContainer.classList.remove('hidden');
+                telemetry.classList.remove('hidden');
+
+                resultCard.className = "p-4 rounded-lg border border-red-500/30 bg-red-500/10 flex items-center gap-4";
+                resultIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-red-400"></i>';
+                resultTitle.innerText = "VERIFICATION FAILED";
+                resultTitle.className = "font-bold text-lg text-red-400";
+                resultDesc.innerText = "Connection to DeepShield API failed (Network/CORS Error).";
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = '<i class="fa-solid fa-fingerprint text-xl"></i> <span>Verify Humanity</span>';
+                verifyBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+            }
+        });
+    </script>
+</body>
+
+</html>

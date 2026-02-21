@@ -1,0 +1,8 @@
+opencv-python
+matplotlib
+numpy
+scipy
+fastapi
+uvicorn
+python-multipart
+firebase-admin

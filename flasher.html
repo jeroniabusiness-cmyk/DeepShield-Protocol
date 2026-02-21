@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liveness Detection Flasher</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            font-family: sans-serif;
+            transition: background-color 0.1s; /* smooth transition optional, remove if crisp change needed */
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            z-index: 10; 
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="startBtn">Start Flash</button>
+
+    <script>
+        const colors = ['red', 'green', 'blue', 'white'];
+        let currentIndex = 0;
+        let intervalId = null;
+
+        const startBtn = document.getElementById('startBtn');
+        
+        startBtn.addEventListener('click', () => {
+            // Hide the button so the whole screen is pure color
+            startBtn.classList.add('hidden');
+            
+            // Start the loop immediately
+            flashColor(); 
+            intervalId = setInterval(flashColor, 500); // 0.5 seconds
+        });
+
+        function flashColor() {
+            document.body.style.backgroundColor = colors[currentIndex];
+            currentIndex = (currentIndex + 1) % colors.length;
+        }
+    </script>
+</body>
+</html>

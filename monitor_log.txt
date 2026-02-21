@@ -1,0 +1,12 @@
+DEBUG: Analysis started (Cross-Correlation Method)
+Processing video frames...
+Finished processing 180 frames.
+Estimated Flash Period: 21.00 frames
+------------------------------
+Max Correlation Coefficient: 0.1896
+Optimal Lag: -86 frames
+------------------------------
+❌ SPOOF DETECTED: Signal does not match Screen Pattern
+Saving plot to 'result_plot.png'...
+Attempting to show plot...
+Plot window closed.

@@ -1,0 +1,12 @@
+DEBUG: Secure Analysis Started on E:\life changing project\challenge.mp4
+Processing video frames...
+Finished processing 180 frames.
+------------------------------
+Red Spikes detected: 5
+Green Spikes detected: 8
+Blue Spikes detected: 4
+------------------------------
+✅ COLOR REFLECTION DETECTED: Face reacted to Red, Green, and Blue flashes.
+Saving plot to 'secure_plot.png'...
+Attempting to show plot...
+Plot window closed.

@@ -1,0 +1,14 @@
+🚀 Starting DeepShield Benchmark...
+Found 1 Real videos and 0 Fake videos.
+
+Testing Real Videos...
+✅ [PASS] experiment.mp4 -> Real (Conf: 0.95)
+
+Testing Fake Videos...
+
+========================================
+📊 BENCHMARK RESULTS
+Accuracy: 100.00%
+True Positives: 1/1
+True Negatives: 0/0
+========================================
