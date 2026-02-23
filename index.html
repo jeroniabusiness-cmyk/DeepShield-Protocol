@@ -190,7 +190,7 @@
         const sessionIdEl = document.getElementById('sessionId');
         const latencyEl = document.getElementById('latency');
 
-        const API_URL = 'https://deepshield-backend-api.onrender.com/verify_liveness';
+        const API_URL = 'http://127.0.0.1:8000/api/verify_liveness';
 
         verifyBtn.addEventListener('click', async () => {
             verifyBtn.disabled = true;
@@ -218,22 +218,24 @@
                 sessionIdEl.innerText = sessionId;
                 latencyEl.innerText = `${processingTime}ms`;
 
-                if (response.is_real) {
+                if (response.is_liveness_verified) {
                     resultCard.className = "p-4 rounded-lg border border-green-500/30 bg-green-500/10 flex items-center gap-4";
                     resultIcon.innerHTML = '<i class="fa-solid fa-check-circle text-green-400"></i>';
-                    resultTitle.innerText = "VERIFICATION SUCCESSFUL";
+                    resultTitle.innerText = "LIVENESS VERIFIED";
                     resultTitle.className = "font-bold text-lg text-green-400";
-                    resultDesc.innerText = `Confidence Score: ${(response.confidence * 100).toFixed(1)}%`;
+                    resultDesc.innerText = `Delta: ${(response.delta).toFixed(2)} | Latency: ${response.latency_ms.toFixed(0)}ms${response.message ? ` | ${response.message}` : ''}`;
                 } else {
                     resultCard.className = "p-4 rounded-lg border border-red-500/30 bg-red-500/10 flex items-center gap-4";
                     resultIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-red-400"></i>';
-                    resultTitle.innerText = "VERIFICATION FAILED";
+                    resultTitle.innerText = "DEEPFAKE DETECTED";
                     resultTitle.className = "font-bold text-lg text-red-400";
 
-                    if (response.error) {
+                    if (response.message) {
+                        resultDesc.innerText = `Delta: ${(response.delta).toFixed(2)} | Latency: ${response.latency_ms.toFixed(0)}ms | ${response.message}`;
+                    } else if (response.error) {
                         resultDesc.innerText = `System Error: ${response.error}`;
                     } else {
-                        resultDesc.innerText = response.reason || "Liveness check failed. Potential spoof detected.";
+                        resultDesc.innerText = `Delta: ${(response.delta).toFixed(2)} | Latency: ${response.latency_ms.toFixed(0)}ms | Failed.`;
                     }
                 }
             } catch (err) {

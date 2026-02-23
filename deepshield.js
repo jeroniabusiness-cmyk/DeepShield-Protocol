@@ -87,12 +87,8 @@ class DeepShield {
 
             document.body.appendChild(overlay);
 
-            // 2. Generate Random Challenge
-            const colors = ['red', 'green', 'blue'];
-            const pattern = [];
-            for (let i = 0; i < 4; i++) { // 4 flashes
-                pattern.push(colors[Math.floor(Math.random() * colors.length)]);
-            }
+            // 2. Strategy: Deterministic Challenge
+            const sequence = ['red', 'green', 'blue'];
 
             // 3. Start Recording
             this.recordedChunks = [];
@@ -104,6 +100,7 @@ class DeepShield {
                 }
             };
 
+            const recordStartTime = performance.now();
             this.mediaRecorder.start();
 
             // 4. Flash Sequence
@@ -112,8 +109,13 @@ class DeepShield {
             // Initial Black (0.5s)
             await new Promise(r => setTimeout(r, 500));
 
-            for (const color of pattern) {
+            let flashOffset = 0;
+
+            for (const color of sequence) {
                 overlay.style.backgroundColor = color;
+                if (color === 'red') {
+                    flashOffset = performance.now() - recordStartTime;
+                }
                 await new Promise(r => setTimeout(r, 500));
             }
 
@@ -133,9 +135,11 @@ class DeepShield {
 
             // 5. Create Blob and Send
             const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
+            const file = new File([blob], "challenge.webm", { type: 'video/webm' });
             const formData = new FormData();
-            formData.append('video', blob, 'challenge.webm');
-            formData.append('challenge_pattern', pattern.join(','));
+            formData.append('video_file', file);
+            formData.append('flash_offset', flashOffset.toString());
+
 
             // Re-use overlay for "Verifying" state but remove video
             overlay.innerHTML = ''; // Clear video
@@ -171,7 +175,7 @@ class DeepShield {
             }
 
             // Return error to UI instead of alerting
-            return { is_real: false, error: errorMsg, reason: "Client-Side Error" };
+            return { is_liveness_verified: false, delta: 0, latency_ms: 0, message: errorMsg, error: "Client-Side Error" };
         } finally {
             if (overlay) {
                 overlay.classList.add('hidden');
